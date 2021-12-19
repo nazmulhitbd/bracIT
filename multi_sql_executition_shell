@@ -1,0 +1,30 @@
+#!/bin/bash
+
+PGDUMP=/usr/edb/as11/bin/psql
+PORT=5432
+BACKUP_LOCATION=/data/backup/script
+LOGFILE=$BACKUP_LOCATION/procedure.log
+DB_NAME=test
+BACKUP_USER=enterprisedb
+BACKUP_PASS='xxxxx'
+PROC1=""
+PROC2=""
+PROC3=""
+
+# Perform Backup
+echo "$(date) : [$PROC1] IS STARTED" >> $LOGFILE;
+# FOR PROC1
+PGPASSWORD=$BACKUP_PASS $PGDUMP --host localhost --port $PORT  -U $BACKUP_USER -d $DB_NAME -c "$PROC1" 2>> $LOGFILE
+echo "$(date) : [$PROC1] IS  FINISHED" >> $LOGFILE;
+
+echo "$(date) : [$PROC2] IS STARTED" >> $LOGFILE;
+# FOR PROC2
+PGPASSWORD=$BACKUP_PASS $PGDUMP --host localhost --port $PORT  -U $BACKUP_USER -d $DB_NAME -c "$PROC2" 2>> $LOGFILE
+echo "$(date) : [$PROC2] IS  FINISHED" >> $LOGFILE;
+
+echo "$(date) : [$PROC3] IS STARTED" >> $LOGFILE;
+# FOR PROC3
+PGPASSWORD=$BACKUP_PASS $PGDUMP --host localhost --port $PORT  -U $BACKUP_USER -d $DB_NAME -c "$PROC3" 2>> $LOGFILE
+echo "$(date) : [$PROC3] IS  FINISHED" >> $LOGFILE;
+
+exit
