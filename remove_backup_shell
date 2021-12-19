@@ -1,0 +1,22 @@
+#!/bin/bash
+
+LOC=/logs/backup/database;
+LOGLOC=/logs/backup/script;
+LOGFILE="removeBackup.log";
+DBNAME=test;
+touch $LOGLOC/$LOGFILE;
+
+FILES=`find $LOC/ -type f -mtime +15 | grep $DBNAME | sort`;
+
+for n in $FILES;
+do
+        /bin/rm -rf $n;
+        if [ -f $n ]; then
+                echo "File : $n Removed Failed # $(date)" >> $LOGFILE;
+        else
+                echo "File : $n Removed # $(date)" >> $LOGFILE;
+        fi
+done
+
+exit
+
